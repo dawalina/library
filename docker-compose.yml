@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+
+  app:
+    container_name: lib_app
+    build:
+      context: ./containers/app
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/var/www
+    env_file: '.env'
+    links:
+      - mysql
+      - redis
+
+  nginx:
+    container_name: lib_nginx
+    build:
+      context: ./containers/nginx
+      dockerfile: Dockerfile
+    volumes:
+      - ./storage/logs/:/var/log/nginx
+    ports:
+      - 80:80
+    links:
+      - app
+
+  mysql:
+    container_name: lib_mysql
+    build:
+      context: ./containers/mysql
+      dockerfile: Dockerfile
+    volumes:
+      - mysqlvolume:/var/lib/mysql
+    environment:
+      - "MYSQL_DATABASE=laravel"
+      - "MYSQL_USER=admin"
+      - "MYSQL_PASSWORD=admin"
+      - "MYSQL_ROOT_PASSWORD=root"
+    ports:
+      - 3306:3306
+#    command: --default-authentication-plugin=mysql_native_password
+
+  redis:
+    image: redis:5.0.7
+
+volumes:
+  mysqlvolume:
