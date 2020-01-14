@@ -14,6 +14,4 @@ fi
 
 php artisan optimize
 
-chown -R www-data:www-data /var/www
-
 php-fpm -F
