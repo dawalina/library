@@ -11,24 +11,14 @@
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
-
 Route::view('/', 'welcome');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-//Auth::routes();
+Route::get('/books', 'BookController@index')->name('book.index');
+Route::get('/books/{id}', 'BookController@view')->name('book.view');
+Route::post('/books/edit/{id}', 'BookController@edit')->name('book.edit');
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-//Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-//Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/books/getItems', 'BookController@getItems')->name('book.getItems');

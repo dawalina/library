@@ -19,9 +19,6 @@ services:
     networks:
       - app-network
     env_file: '.env'
-    links:
-      - mysql
-      - redis
 
   nginx:
     container_name: lib_nginx
@@ -58,6 +55,8 @@ services:
 
   redis:
     image: redis:5.0.7
+    networks:
+      - app-network
 
 volumes:
   mysqlvolume:

@@ -33,7 +33,13 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        @auth
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('book.index') }}">
+                                    {{ __('Books') }}
+                                </a>
+                            </li>
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -76,5 +82,10 @@
             @yield('content')
         </main>
     </div>
+
+    {{-- Link assets --}}
+    @if (file_exists(App::basePath() . '/public/assets/' . Route::currentRouteName() . '.js'))
+        <script src="{{ asset('assets/' . Route::currentRouteName() . '.js') }}"></script>
+    @endif
 </body>
 </html>
