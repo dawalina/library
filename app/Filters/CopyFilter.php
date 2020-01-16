@@ -6,9 +6,15 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 
-class BookFilter extends Filter
+class CopyFilter extends Filter
 {
     const PER_PAGE = 10;
+
+    protected $id;
+
+    public function __construct($id) {
+        $this->id = $id;
+    }
 
     /**
      * @param Request|null $request
@@ -21,10 +27,9 @@ class BookFilter extends Filter
     }
 
     /**
-     * @param Request|null $request
      * @return int
      */
-    public function count(Request $request = null): int
+    public function count(): int
     {
         $builder = $this->getQueryBuilder();
         return $builder->count();
@@ -35,12 +40,8 @@ class BookFilter extends Filter
      */
     private function getQueryBuilder(): Builder
     {
-        return \DB::table('books')
-            ->join('categories', 'categories.id', '=', 'books.category_id')
-            ->orderBy('books.title')
-            ->select([
-                'books.*',
-                'categories.name'
-            ]);
+        return \DB::table('copies')
+            ->where('book_id', '=', $this->id)
+            ->orderBy('status');
     }
 }
