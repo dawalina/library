@@ -17,6 +17,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+//Authors
+Route::get('/authors', 'AuthorController@index')->name('author.index');
+Route::get('/authors/{id}', 'AuthorController@view')->name('author.view');
+Route::post('/authors/edit/{id}', 'AuthorController@edit')->name('author.edit');
+
+//Books
 Route::get('/books', 'BookController@index')->name('book.index');
 Route::get('/books/{id}', 'BookController@view')->name('book.view');
 Route::post('/books/edit/{id}', 'BookController@edit')->name('book.edit');

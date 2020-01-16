@@ -35,6 +35,11 @@
                     <ul class="navbar-nav mr-auto">
                         @auth
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('author.index') }}">
+                                    {{ __('Authors') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('book.index') }}">
                                     {{ __('Books') }}
                                 </a>
