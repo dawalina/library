@@ -17,7 +17,22 @@ class AuthorFilter extends Filter
     public function get(Request $request = null): LengthAwarePaginator
     {
         $builder = $this->getQueryBuilder();
+
+        $this->filter($builder, $request);
+
         return $builder->paginate(self::PER_PAGE, ['*'], 'page');
+    }
+
+    public function filter(Builder $builder, Request $request) {
+        $firstName = $request->get('first_name', '');
+        if (!empty($firstName)) {
+            $builder->where('first_name', 'LIKE', '%' . $firstName . '%');
+        }
+
+        $lastName = $request->get('last_name', '');
+        if (!empty($lastName)) {
+            $builder->where('last_name', 'LIKE', '%' . $lastName . '%');
+        }
     }
 
     /**
