@@ -36,6 +36,30 @@
             <div class="card-footer">
                 {{ $items->links() }}
             </div>
+            <div class="card-footer">
+                {{ Form::open([
+                    'route' => ['author.create']
+                ]) }}
+                <div class="form-group row">
+                    {{ Form::label('first_name', 'First name', [
+                        'class' => 'form-control-label col-md-3'
+                    ]) }}
+                    {{ Form::text('first_name', '', [
+                        'class' => 'form-control col-md-3'
+                    ]) }}
+                </div>
+                <div class="form-group row">
+                    {{ Form::label('last_name', 'Last name', [
+                        'class' => 'form-control-label col-md-3'
+                    ]) }}
+                    {{ Form::text('last_name', '', [
+                        'class' => 'form-control col-md-3'
+                    ]) }}
+                </div>
+                {{ Form::submit('Create', ['class' => 'btn btn-primary col-md-3']) }}
+            </div>
+            {{ Form::close() }}
+        </div>
         </div>
     </div>
 </div>

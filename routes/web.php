@@ -21,6 +21,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/authors', 'AuthorController@index')->name('author.index');
 Route::get('/authors/{id}', 'AuthorController@view')->name('author.view');
 Route::post('/authors/edit/{id}', 'AuthorController@edit')->name('author.edit');
+Route::post('/authors/create', 'AuthorController@create')->name('author.create');
 
 //Books
 Route::get('/books', 'BookController@index')->name('book.index');

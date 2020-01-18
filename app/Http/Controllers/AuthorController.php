@@ -63,4 +63,19 @@ class AuthorController extends Controller
 
         return redirect('authors/' . $id);
     }
+
+    /**
+     * Create author
+     * @param Request $request
+     * @return RedirectResponse|Redirector
+     */
+    public function create(Request $request)
+    {
+        $author = Author::firstOrCreate([
+            'first_name' => $request->get('first_name', ''),
+            'last_name'  => $request->get('last_name', ''),
+        ]);
+
+        return redirect('authors/' . $author->id);
+    }
 }
