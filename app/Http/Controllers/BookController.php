@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Filters\BookFilter;
 use App\Filters\CopyFilter;
+use App\Models\Author;
 use App\Models\Book;
 use App\Models\Copy;
 use Illuminate\Contracts\View\Factory;
@@ -46,10 +47,14 @@ class BookController extends Controller
     public function view($id)
     {
         $filter = new CopyFilter($id);
+
+        $book = Book::whereId($id)->first();
         return view('book.view', [
-            'item'     => Book::whereId($id)->first(),
-            'items'    => $filter->get(),
-            'statuses' => Copy::$statuses
+            'item'           => $book,
+            'items'          => $filter->get(),
+            'statuses'       => Copy::$statuses,
+            'authors'        => Author::query()->orderBy('first_name')->get(),
+            'currentAuthors' => $book->authors->pluck('first_name', 'id')
         ]);
     }
 
@@ -132,6 +137,48 @@ class BookController extends Controller
             ];
         }
         Copy::insert($data);
+
+        return redirect('books/' . $id);
+    }
+
+    /**
+     * Remove author
+     * @param int $id
+     * @param int $authorId
+     * @return RedirectResponse|Redirector
+     */
+    public function removeAuthor($id, $authorId)
+    {
+        \DB::table('books_authors')
+            ->where('book_id', '=', $id)
+            ->where('author_id', '=', $authorId)
+            ->delete();
+
+        return redirect('books/' . $id);
+    }
+
+    /**
+     * Add author
+     * @param int $id
+     * @param Request $request
+     * @return RedirectResponse|Redirector
+     */
+    public function addAuthor($id, Request $request)
+    {
+        $authorId = $request->get('author_id');
+
+        $author = \DB::table('books_authors')
+            ->where('book_id', '=', $id)
+            ->where('author_id', '=', $authorId)
+            ->first();
+
+        if (!$author) {
+            \Db::table('books_authors')
+                ->insert([
+                    'book_id' => $id,
+                    'author_id' => $authorId,
+                ]);
+        }
 
         return redirect('books/' . $id);
     }

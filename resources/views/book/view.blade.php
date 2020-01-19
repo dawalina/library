@@ -42,6 +42,62 @@
     <div class="row justify-content-center">
         <div class="col-sm-12">
             <div class="card">
+                <div class="card-header">{{ __('Authors') }}</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm">{{ __('First name') }}</div>
+                        <div class="col-sm">{{ __('Last name') }}</div>
+                        <div class="col-sm">Action</div>
+                    </div>
+                    @foreach($item->authors as $author)
+                        <div class="row">
+                            <div class="col-sm">{{ $author->first_name }}</div>
+                            <div class="col-sm">{{ $author->last_name }}</div>
+                            <div class="col-sm">
+                                <a class="btn-link" href="{{ route('book.author.remove', [
+                                        'id'       => $item->id,
+                                        'authorId' => $author->id,
+    ]                               ) }}">
+                                    {{ __('Remove') }}
+                                </a>
+{{--                                <a class="btn-link" href="{{ route('book.author.add', [--}}
+{{--                                        'id'       => $item->id,--}}
+{{--                                        'authorId' => $author->id,--}}
+{{--    ]                               ) }}">--}}
+{{--                                    {{ __('Add') }}--}}
+{{--                                </a>--}}
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            <div class="card-footer">
+                {{ Form::open([
+                    'route' => ['book.author.add', $item->id],
+                    'class' => 'form-inline'
+                ]) }}
+                {{ Form::label('author_id', 'Author', [
+                    'class' => 'form-control-label col-md-3'
+                ]) }}
+                <select name="author_id" class="form-control col-md-6">
+                    @foreach ($authors as $author)
+                        <option value="{{ $author->id  }}"
+                            @if (isset($currentAuthors[$author->id]))
+                                disabled
+                            @endif
+                        >
+                            {{ $author->first_name }} {{ $author->last_name }}
+                        </option>
+                    @endforeach
+                </select>
+                {{ Form::submit('Add', ['class' => 'btn btn-primary col-md-3']) }}
+            </div>
+            {{ Form::close() }}
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-sm-12">
+            <div class="card">
                 <div class="card-header">{{ __('Copies') }}</div>
                 <div class="card-body">
                     <div class="row">

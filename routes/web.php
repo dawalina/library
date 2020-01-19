@@ -30,6 +30,8 @@ Route::post('/books/edit/{id}', 'BookController@edit')->name('book.edit');
 Route::get('/books/removeCopy/{id}/{copyId}', 'BookController@removeCopy')->name('book.copy.remove');
 Route::get('/books/addCopy/{id}/{copyId}', 'BookController@addCopy')->name('book.copy.add');
 Route::post('/books/createCopy/{id}', 'BookController@createCopy')->name('book.copy.create');
+Route::get('/books/removeAuthor/{id}/{authorId}', 'BookController@removeAuthor')->name('book.author.remove');
+Route::post('/books/addAuthor/{id}', 'BookController@addAuthor')->name('book.author.add');
 
 Route::get('/books/getItems', 'BookController@getItems')->name('book.getItems');
 
