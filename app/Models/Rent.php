@@ -10,6 +10,11 @@ class Rent extends Model
     public const STATUS_RETURNED = 1;
     public const STATUS_LOST     = 2;
 
+    protected $fillable = [
+        'reader_id',
+        'copy_id'
+    ];
+
     /**
      * The attributes that should be mutated to dates.
      *

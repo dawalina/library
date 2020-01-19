@@ -6,7 +6,7 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 
-class AuthorFilter extends Filter
+class ReaderFilter extends Filter
 {
     const PER_PAGE = 10;
 
@@ -38,7 +38,7 @@ class AuthorFilter extends Filter
      */
     private function getQueryBuilder(): Builder
     {
-        return \DB::table('authors')
+        return \DB::table('readers')
             ->orderBy('last_name');
     }
 }

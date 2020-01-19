@@ -32,3 +32,19 @@ Route::get('/books/addCopy/{id}/{copyId}', 'BookController@addCopy')->name('book
 Route::post('/books/createCopy/{id}', 'BookController@createCopy')->name('book.copy.create');
 
 Route::get('/books/getItems', 'BookController@getItems')->name('book.getItems');
+
+//Readers
+Route::get('/readers', 'ReaderController@index')->name('reader.index');
+Route::get('/readers/{id}', 'ReaderController@view')->name('reader.view');
+Route::post('/readers/edit/{id}', 'ReaderController@edit')->name('reader.edit');
+Route::post('/readers/create', 'ReaderController@create')->name('reader.create');
+
+//Rents
+Route::get('/rents', 'RentController@index')->name('rent.index');
+Route::get('/rents/{id}', 'RentController@view')->name('rent.view');
+Route::post('/rents/edit/{id}', 'RentController@edit')->name('rent.edit');
+Route::post('/rents/create', 'RentController@create')->name('rent.create');
+
+//Report
+Route::get('/report', 'ReportController@index')->name('report.index');
+Route::post('/report', 'ReportController@index')->name('report.index');
