@@ -12,11 +12,11 @@
 */
 
 Route::group(['prefix' => 'v1'], function () {
-    Route::get('/login', 'Api\v1\AuthController@login')->name('login');
+    Route::post('/login', 'Api\v1\AuthController@login')->name('login');
 });
 
 Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
-    Route::get('/logout', 'Api\v1\AuthController@logout')->name('logout');
+    Route::post('/logout', 'Api\v1\AuthController@logout')->name('logout');
 
     Route::get('/authors', 'Api\v1\AuthorController@index')->name('authors');
     Route::get('/authors/{id}', 'Api\v1\AuthorController@show')->name('authors.show');
